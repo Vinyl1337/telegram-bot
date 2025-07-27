@@ -5,14 +5,14 @@ async def start(update, context):
     await update.message.reply_text('Bot działa!')
 
 def main():
-    # Token z zmiennej środowiskowej (bezpieczniej)
     token = os.getenv('BOT_TOKEN')
     
+    # Nowa składnia dla wersji 20+
     app = Application.builder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     
-    # Dla Render używamy polling zamiast webhook
-    app.run_polling()
+    # Używamy polling
+    app.run_polling(drop_pending_updates=True)
 
 if __name__ == '__main__':
     main()
